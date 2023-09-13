@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 import static org.junit.Assert.*;
 
-
 /**
  * TODO: Write more unit tests to test the implementation of ArrayIntQueue
  * for the {@link LinkedIntQueue} and
@@ -33,8 +32,8 @@ public class IntQueueTest {
     @Before
     public void setUp() {
         // comment/uncomment these lines to test each class
-        mQueue = new LinkedIntQueue();
-//        mQueue = new ArrayIntQueue();
+        // mQueue = new LinkedIntQueue();
+        mQueue = new ArrayIntQueue();
 
         testList = new ArrayList<>(List.of(1, 2, 3));
     }
@@ -78,6 +77,8 @@ public class IntQueueTest {
             assertEquals(testList.get(i), mQueue.dequeue());
             assertEquals(testList.size() - i - 1, mQueue.size());
         }
+        mQueue.clear();
+        assertNull(mQueue.dequeue());
     }
 
     @Test
@@ -100,5 +101,19 @@ public class IntQueueTest {
         }
     }
 
+    @Test
+    public void testClear() {
+        mQueue.enqueue(1);
+        mQueue.enqueue(2);
+        mQueue.clear();
+        assertTrue(mQueue.isEmpty());
+    }
 
+    @Test
+    public void testEnsureCapacity() {
+        for (int i = 0; i < 11; i++) {
+            mQueue.enqueue(i);
+        }
+        assertEquals(11, mQueue.size());
+    }
 }
